@@ -1,0 +1,241 @@
+﻿@model IEnumerable<QuanLyBanHang_63132681.Models.CartModel_63132681>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+
+<script>
+
+    $(document).ready(function ()  {
+
+
+        // Hàm định dạng số thành kiểu tiền tệ
+        function formatCurrency(number) {
+            var formatter = new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND',
+                minimumFractionDigits: 0
+            });
+            return formatter.format(number);
+        }
+
+         function updateCheckoutButton() {
+        var hasProductsInCart = $('.cart-item').length > 0;
+        var count = @Session["count"];
+        if (count !== undefined && count !== null) {
+            $('#checkoutButton').prop('disabled', !hasProductsInCart);
+        } else {
+            $('#checkoutButton').prop('disabled', true);
+        }
+    }
+
+   $(".remove-cart-item").click(function () {
+        var currentButton = $(this);
+        var model = {};
+        model.id = currentButton.closest('.cart-item').data('product-id');
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Remove", "Cart_63132681")',
+            data: JSON.stringify(model),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function () {
+                $('#CartCount').text(@Session["count"] - 1);
+                currentButton.closest('.cart-item').remove();
+                updateTotal();
+                updateCheckoutButton();
+                window.location.reload();
+            },
+            error: function () {
+                alert("Lỗi trong khi xóa sản phẩm khỏi giỏ hàng!");
+            }
+        });
+        return false;
+    });
+
+
+        $(document).ready(function () {
+            $(".button-plus").click(function () {
+                var inputQuantity = $(this).closest('.input-spinner').find('.input-quantity');
+                var currentValue = parseInt(inputQuantity.val());
+                currentValue += 1;
+                inputQuantity.val(currentValue);
+                updateTotal();
+                updateCheckoutButton();
+            });
+
+            $(".button-minus").click(function () {
+                var inputQuantity = $(this).closest('.input-spinner').find('.input-quantity');
+                var currentValue = parseInt(inputQuantity.val());
+                if (currentValue > 1) {
+                    currentValue -= 1;
+                    inputQuantity.val(currentValue);
+                    updateTotal();
+                    updateCheckoutButton();
+                }
+            });
+        });
+
+
+        $(".button-plus, .button-minus").click(function () {
+            updateCheckoutButton();
+        });
+
+    // Hàm cập nhật tổng giá trị
+      function updateTotal() {
+          var total = 0;
+          $('.cart-item').each(function () {
+              var price = parseFloat($(this).find('.price').text());
+              var quantity = parseInt($(this).find('input[type="text"]').val());
+              total += price * quantity;
+          });
+          $('#totalPrice').text(formatCurrency(total));
+      }
+
+      // Gọi hàm cập nhật tổng giá trị khi trang được load
+        updateTotal();
+        updateCheckoutButton();
+  });
+
+</script>
+
+@{
+    var hasProductsInCart = Model != null && Model.Any();
+    ViewBag.HasProductsInCart = hasProductsInCart;
+}
+<section class="section-content padding-y">
+    <div class="container">
+
+        <div class="row">
+            <main class="col-md-9">
+                <div class="card">
+
+                    <table class="table table-borderless table-shopping-cart">
+                        <thead class="text-muted">
+                            <tr class="small text-uppercase">
+                                <th scope="col">Sản Phẩm</th>
+                                <th scope="col" width="120">Số Lượng</th>
+                                <th scope="col" width="120">Giá</th>
+                                <th scope="col" class="text-right" width="200"> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var i in Model)
+                                {
+                                    <tr class="cart-item" data-product-id="@i.SanPham.MaSanPham">
+                                        <td>
+                                            <figure class="itemside">
+                                                <div class="aside"><img src="~/Content/images/items/@i.SanPham.AnhSanPham" class="img-sm"></div>
+                                                <figcaption class="info">
+                                                    <a href="#" class="title text-dark">@i.SanPham.MoTa</a>
+                                                </figcaption>
+                                            </figure>
+                                        </td>
+                                        <td>
+                                            <div class="input-group mb-3 input-spinner">
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-light button-minus"> - </button>
+                                                </div>
+                                                <input class="form-control input-quantity" type="text" readonly value="@i.SoLuong">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-light button-plus"> + </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="price-wrap">
+                                                <var class="price">@i.SanPham.DonGia</var>
+                                            </div>
+                                        </td>
+                                        <td class="text-right">
+                                            <input type="hidden" value="@i.SanPham.MaSanPham" class="masp" />
+                                            <a href="#" class="btn btn-light remove-cart-item"> Xóa</a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+                            else
+                            {
+                                <d></d>
+                            }
+
+
+
+                        </tbody>
+                    </table>
+
+                    <div class="card-body border-top">
+                        @*<a href="~/ThanhToan_63132681/Index" class="btn btn-primary float-md-right"> Thanh Toán <i class="fa fa-chevron-right"></i> </a>*@
+                        @*@if (ViewBag.HasProductsInCart)
+        {
+            <a href="~/ThanhToan_63132681/Index" class="btn btn-primary float-md-right"> Thanh Toán <i class="fa fa-chevron-right"></i> </a>
+        }
+        else
+        {
+            <div class="alert alert-warning mt-3">
+                <p class="icontext"><i class="icon text-warning fa fa-exclamation-triangle"></i> Không có sản phẩm trong giỏ hàng</p>
+            </div>
+        }*@
+
+                        @if (ViewBag.HasProductsInCart)
+                        {
+                            <a href="~/ThanhToan_63132681/Index" class="btn btn-primary checkout-btn float-md-right" id="checkoutButton"> Thanh Toán <i class="fa fa-chevron-right"></i> </a>
+                        }
+                        else
+                        {
+                            <div class="alert alert-warning mt-3 empty-cart-msg">
+                                <p class="icontext"><i class="icon text-warning fa fa-exclamation-triangle"></i> Không có sản phẩm trong giỏ hàng</p>
+                            </div>
+                        }
+                        <a href="~/Home/Index" class="btn btn-light"> <i class="fa fa-chevron-left"></i> Tiếp tục mua sắm </a>
+                    </div>
+                </div> <!-- card.// -->
+
+                <div class="alert alert-success mt-3">
+                    <p class="icontext"><i class="icon text-success fa fa-truck"></i> Free Delivery within 1-2 weeks</p>
+                </div>
+
+            </main> <!-- col.// -->
+            <aside class="col-md-3">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label>Have coupon?</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="" placeholder="Coupon code">
+                                    <span class="input-group-append">
+                                        <button class="btn btn-primary">Apply</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div> <!-- card-body.// -->
+                </div>  <!-- card .// -->
+                <div class="card">
+                    <div class="card-body">
+                   
+                        <dl class="dlist-align">
+                            <dt>Tổng Tiền:</dt>
+                            <dd class="text-right h5"><strong id="totalPrice">0.00</strong></dd>
+                        </dl>
+                        <hr>
+                        <p class="text-center mb-3">
+                            <img src="~/Content/images/misc/payments.png" height="26"/>
+                        </p>
+
+                    </div> <!-- card-body.// -->
+                </div>  <!-- card .// -->
+            </aside> <!-- col.// -->
+        </div>
+
+    </div> <!-- container .//  -->
+</section>
+

@@ -1,0 +1,148 @@
+﻿@model QuanLyBanHang_63132681.Models.LoaiSanPham
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin_63132681/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+
+
+</head>
+
+<body>
+
+    <!-- About Start -->
+    <div class="content-wrapper">
+        <h4 class="mt-2 text-center text-uppercase text-danger font-weight-bold">Bạn có chắc chắn muốn xóa loại sản phẩm này?</h4>
+        <div class="container py-5 detail--wrapper">
+
+            <div class="container">
+                <div class="row g-5">
+                    <div class="col-lg-6 wow fadeInUp"
+                         data-wow-delay="0.1s"
+                         @*style="min-height: 400px"*@>
+                        <div class="position-relative h-100">
+                            <img class="img-fluid position-absolute w-100 h-100 img--info"
+                                 src="~/Content/images/items/@Html.DisplayFor(model => model.AnhLoaiSP)"
+                                 alt=""
+                                 style="object-fit: cover" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <h1 class="mb-4">
+                            Thông Tin <span class="text-primary">Loại Sản Phẩm</span>
+                        </h1>
+                        <p class="mb-4">
+                            <span class="font-weight-bold">Mã Loại Sản Phẩm:</span> @Html.DisplayFor(model => model.MaLoaiSanPham)
+                        </p>
+                        <p class="mb-4">
+                            <span class="font-weight-bold">Tên Loại Sản Phẩm: </span>@Html.DisplayFor(model => model.TenLoaiSanPham)
+                        </p>
+
+                        <p class="mb-4">
+                            <span class="font-weight-bold">  Mô Tả Loại Sản Phẩm:</span> @Html.DisplayFor(model => model.Mota)
+                        </p>
+
+
+
+
+
+
+
+
+
+
+                        @using (Html.BeginForm("Delete", "LoaiSanPhamAdmin_63132681", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="second--btn">
+                                <input type="submit" value="Xóa Loại Sản Phẩm" class=" btn--one" />
+                                @Html.ActionLink("Quay Lại", "../LoaiSanPhamAdmin_63132681/Index", null, new { @class = "btn--two" })
+                            </div>
+                        }
+                        </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+<style>
+
+    a {
+        color: inherit;
+        text-decoration: none;
+        background-color: initial; /* Đặt lại background-color thành giá trị mặc định */
+        /*  -webkit-text-decoration-skip: objects;*/
+    }
+
+    .img--info {
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    }
+
+    .detail--wrapper {
+        position: relative;
+        top: 20px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+        border-radius: 12px;
+        width: 59%;
+    }
+
+    .second--btn {
+        display: flex;
+        gap: 20px;
+        margin-top: 34px;
+    }
+
+    .btn--one {
+        background: #339af0;
+        border: none;
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+        .btn--one:hover {
+            background: #1c7ed6;
+            cursor: pointer;
+            color: #fff;
+        }
+
+    .btn--two {
+        background-color: #f06595;
+        border: none;
+        color: #f8f9fa;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+        .btn--two:hover {
+            background-color: #d6336c;
+            cursor: pointer;
+            color: #fff;
+        }
+</style>
+
+
+
+
+

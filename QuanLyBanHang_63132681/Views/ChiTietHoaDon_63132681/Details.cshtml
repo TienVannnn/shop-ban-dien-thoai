@@ -1,0 +1,117 @@
+﻿
+@model IEnumerable<QuanLyBanHang_63132681.Models.ChiTietHoaDon>
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper mt-3">
+    <div class="center-container mb-5">
+
+        @foreach (var m in ViewBag.Main)
+        {
+            <div class="card user-card">
+                <div class="card-body pb-0">
+                    <div class="d-flex mb-3 align-items-center">
+                        <div class="dz-media mr-3">
+                            <img src="~/Content/images/items/avatar.png"  style="width: 200px"/>
+                        </div>
+
+                        <div>
+                            <h5 class="title"><a href="javascript:void(0);">Tên Khách Hàng: @m.khachhang.HoTen</a></h5>
+                           
+                            <ul class="list-group list-group-flush">
+
+                                <li class="">
+                                    <span class="mb-0 title">Mã Hóa Đơn</span> :
+                                    <span class="text-black ml-2">@m.donhang.MaHoaDon</span>
+                                </li>
+                                <li class="">
+                                    <span class="mb-0 title">Mã Khách Hàng</span> :
+                                    <span class="text-black ml-2">@m.khachhang.MaKhachHang</span>
+                                </li>
+                                <li class="">
+                                    <span class="mb-0 title">Tên Khách Hàng</span> :
+                                    <span class="text-black ml-2">@m.khachhang.HoTen</span>
+                                </li>
+                                <li class="">
+                                    <span class="mb-0 title">Số Điện Thoại</span> :
+                                    <span class="text-black ml-2">@m.khachhang.DienThoai</span>
+                                </li>
+                                <li class="">
+                                    <span class="mb-0 title">Địa Chỉ</span> :
+                                    <span class="text-black ml-2">@m.khachhang.DiaChi</span>
+                                </li>
+                                <li class="">
+                                    <span class="mb-0 title">Email</span> :
+                                    <span class="text-black ml-2">@m.khachhang.Email</span>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                  
+                   
+                </div>
+                <div class="">
+                   
+               <a href="@Url.Action("Index", "Home")" class="btn btn-outline-danger"><span><-</span>Quay về trang chủ</a>
+                  
+
+                </div>
+            </div>
+        }
+    </div>
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Số STT</th>
+                <th>Tên Sản Phẩm</th>
+
+                <th>Số Lượng</th>
+                <th>Đơn Giá</th>
+                <th>Thành Tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                double tongtien = 0;
+                int i = 0;
+            }
+            @foreach (var item in ViewBag.Sub)
+            {
+                i++;
+                double donGia = Convert.ToDouble(item.sanpham.DonGia);
+                double soLuong = Convert.ToDouble(item.ctdh.SoLuong);
+                double thanhTien = donGia * soLuong;
+
+                tongtien += thanhTien;
+
+                <tr>
+                    <td>@i</td>
+                    <td>@item.sanpham.TenSanPham</td>
+
+                    <td>@item.ctdh.SoLuong</td>
+                    <td>@String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0:0,##0}", donGia) VNĐ</td>
+                    <td>@String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0:0,##0}", thanhTien) VNĐ</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="5"></th>
+                <th>Tổng Tiền:</th>
+                <th>@String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0:0,##0}", tongtien) VNĐ</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<style>
+    .list-group{
+        list-style: none;
+    }
+</style>

@@ -1,0 +1,89 @@
+﻿@model QuanLyBanHang_63132681.Models.KhachHang
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+  
+
+<div class="chi-tiet-hoa-don">
+    @if (Session["FullName"] != null)
+    {
+        <h4>Chào Khách hàng: @Session["FullName"]</h4>
+    }
+    <p> <a href="@Url.Action("Index", "HoaDon_63132681", new { id = Session["idUser"] })">Xem lịch sử mua hàng</a></p>
+    <hr />
+    <div class="item">
+        <strong>Họ và tên:</strong>
+        @Html.DisplayFor(model => model.HoTen)
+    </div>
+    <div class="item">
+        <strong>Địa chỉ:</strong>
+        @Html.DisplayFor(model => model.DiaChi)
+    </div>
+    <div class="item">
+        <strong>Điện thoại:</strong>
+        @Html.DisplayFor(model => model.DienThoai)
+    </div>
+
+    <div class="item">
+        <strong>Email:</strong>
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+
+</div>
+<div class="action-links">
+    <p>
+        @*@Html.ActionLink("Đổi mật khẩu", "Edit", new { id = Model.MaKhachHang })*@
+        @Html.ActionLink("Quay lại", "Index", "Home")
+    </p>
+</div>
+
+
+<style>
+    /* Định dạng phần chào khách hàng */
+    .chi-tiet-hoa-don h4 {
+        color: #3498db; /* Màu chữ xanh dương */
+        font-size: 18px; /* Kích thước chữ */
+        margin-top: 40px;
+    }
+
+    /* Định dạng link "Xem lịch sử mua hàng" */
+    .chi-tiet-hoa-don a {
+        color: #e74c3c; /* Màu chữ đỏ */
+        text-decoration: none; /* Ẩn gạch chân của liên kết */
+        font-weight: bold; /* Độ đậm của chữ */
+    }
+
+        .chi-tiet-hoa-don a:hover {
+            text-decoration: underline; /* Hiển thị gạch chân khi hover */
+        }
+
+    /* Định dạng các mục thông tin chi tiết hóa đơn */
+    .chi-tiet-hoa-don .item {
+        margin-bottom: 10px; /* Khoảng cách giữa các mục */
+    }
+
+    .chi-tiet-hoa-don strong {
+        font-weight: bold; /* Độ đậm của chữ */
+    }
+
+    /* Định dạng phần các liên kết hành động */
+    .action-links p {
+        margin-top: 20px; /* Khoảng cách từ trên xuống */
+    }
+
+    .action-links a {
+        color: #2ecc71; /* Màu chữ xanh lá cây */
+        text-decoration: none; /* Ẩn gạch chân của liên kết */
+        margin-right: 10px; /* Khoảng cách giữa các liên kết */
+    }
+
+        .action-links a:hover {
+            text-decoration: underline; /* Hiển thị gạch chân khi hover */
+        }
+
+</style>

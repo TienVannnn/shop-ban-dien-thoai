@@ -1,0 +1,63 @@
+﻿@model List<QuanLyBanHang_63132681.Models.LoaiSanPham>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h4 class="text-center mt-5">CÁC SẢN PHẨM BÁN CHẠY VÀ ĐƯỢC GIỚI TRẺ ƯA CHUỘNG!!!</h4>
+<section class="section-content padding-y">
+    <div class="container">
+
+        <nav class="row">
+            @foreach (var i in Model)
+            {
+             
+
+
+                    <div class="col-md-3">
+
+                        <div class="card card-category">
+                            <div class="img-wrap" style="background: #ffd7d7; width:100%">
+                                <a href="@Url.Action("DanhMucSanPham_63132681", "DanhMucSP_63132681", new { @id = i.MaLoaiSanPham })"><img src="~/Content/images/items/@i.AnhLoaiSP"></a>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title text-center">
+
+                                    @Html.ActionLink(i.TenLoaiSanPham, "DanhMucSanPham_63132681", "DanhMucSP_63132681", new { @id = i.MaLoaiSanPham }, null)
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title">@i.Mota</h4>
+                            </div>
+                        </div>
+
+                    </div>
+            }
+
+        </nav> <!-- row.// -->
+
+
+    </div> <!-- container .//  -->
+</section>
+
+<style>
+    .card-category {
+        position: relative;
+        transition: opacity 0.3s ease-in-out;
+        border-radius: 20px;
+    }
+
+        .card-category:hover {
+            opacity: 3;
+            box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+            
+           
+        }
+
+        .card-category:not(:hover) {
+            opacity: 0.9;
+        }
+</style>
+
+

@@ -1,0 +1,192 @@
+﻿@*@model QuanLyBanHang_63132681.Models.SanPham*@
+
+@model QuanLyBanHang_63132681.Models.SanPhamTuongTu_63132681
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#addtocart").click(function () {
+            var model = {};
+            //lấy id sản phẩm
+            model.id = @Model.CurrentProduct.MaSanPham;
+            // lấy số lượng đặt hàng
+            model.soluong = $("#ipQuantity").val();
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("AddToCart", "Cart_63132681")',
+                data:  JSON.stringify(model) ,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    alert("Thêm giỏ hàng thành công!")
+                    $('#CartCount').text(@Session["count"] + 1);
+                },
+                error: function () {
+                    alert("Lỗi trong khi thêm vào giỏ hàng!");
+                }
+            });
+            return false;
+        });
+    });
+</script>
+<section class="py-3 bg-light ">
+    <div class="container mt-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index", "DanhMucSP_63132681")">Sản Phẩm</a></li>
+            <li class="breadcrumb-item"><a >@Model.CurrentProduct.TenSanPham</a></li>
+           
+        </ol>
+    </div>
+</section>
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content bg-white padding-y">
+    <div class="container">
+
+        <!-- ============================ ITEM DETAIL ======================== -->
+        <div class="row">
+            <aside class="col-md-6">
+                <div class="card">
+                    <article class="gallery-wrap">
+                        <div class="img-big-wrap">
+                            <div> <a href="#"><img src="~/Content/images/items/@Model.CurrentProduct.AnhSanPham"></a></div>
+                        </div> <!-- slider-product.// -->
+                        <div class="thumbs-wrap">
+                            <a href="#" class="item-thumb"> <img src="~/Content/images/items/@Model.CurrentProduct.AnhSanPham"></a>
+                            <a href="#" class="item-thumb"> <img src="~/Content/images/items/@Model.CurrentProduct.AnhSanPham"></a>
+                            <a href="#" class="item-thumb"> <img src="~/Content/images/items/@Model.CurrentProduct.AnhSanPham"></a>
+                            <a href="#" class="item-thumb"> <img src="~/Content/images/items/@Model.CurrentProduct.AnhSanPham"></a>
+                        </div> <!-- slider-nav.// -->
+                    </article> <!-- gallery-wrap .end// -->
+                </div> <!-- card.// -->
+            </aside>
+            <main class="col-md-6">
+                <article class="product-info-aside">
+
+                    <h2 class="title mt-3">@Model.CurrentProduct.TenSanPham </h2>
+
+                    <div class="rating-wrap my-3">
+                        <ul class="rating-stars">
+                            <li style="width:80%" class="stars-active">
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </li>
+                            <li>    
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <small class="label-rating text-muted">132 reviews</small>
+                        <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i>@Model.CurrentProduct.SoLuongDaBan đã bán</small>
+                    </div> <!-- rating-wrap.// -->
+
+                    <div class="mb-3">
+                        <var class="price h4">@String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0:0,##0}", Model.CurrentProduct.DonGia) VNĐ</var>
+
+                    </div> <!-- price-detail-wrap .// -->
+
+                    <p>
+                        @Model.CurrentProduct.MoTa
+                    </p>
+
+
+                    <dl class="row">
+                        <dt class="col-sm-3">Nhà sản xuất</dt>
+                        <dd class="col-sm-9"><a>Việt nam</a></dd>
+
+                        <dt class="col-sm-3">Số bài viết</dt>
+                        <dd class="col-sm-9">596 065</dd>
+
+                        <dt class="col-sm-3">Bảo hành</dt>
+                        <dd class="col-sm-9">2 năm</dd>
+
+                        <dt class="col-sm-3">Thời gian giao hàng</dt>
+                        <dd class="col-sm-9">3-4 ngày</dd>
+
+                        <dt class="col-sm-3">Chất liệu</dt>
+                        <dd class="col-sm-9">Titan</dd>
+                    </dl>
+
+                    <!-- Thêm mã script vào trang của bạn -->
+                    <script>
+                        $(document).ready(function () {
+                            // Lấy giá trị ban đầu của input
+                            var currentValue = parseInt($("#ipQuantity").val());
+
+                            // Xử lý khi nút cộng được nhấn
+                            $("#button-plus").click(function () {
+                                currentValue += 1;
+                                $("#ipQuantity").val(currentValue);
+                            });
+
+                            // Xử lý khi nút trừ được nhấn
+                            $("#button-minus").click(function () {
+                                if (currentValue > 1) {
+                                    currentValue -= 1;
+                                    $("#ipQuantity").val(currentValue);
+                                }
+                            });
+                        });
+                    </script>
+
+                    <!-- ... Các phần HTML khác ... -->
+
+                    <div class="form-row mt-4">
+                        <div class="form-group col-md flex-grow-0">
+                            <div class="input-group mb-3 input-spinner">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-light" type="button" id="button-minus"> - </button>
+                                </div>
+                                <input id="ipQuantity" type="text" class="form-control" readonly value="1">
+                                <div class="input-group-append">
+                                    <button class="btn btn-light" type="button" id="button-plus"> + </button>
+                                </div>
+                            </div>
+                        </div> <!-- col.// -->
+                        <div class="form-group col-md">
+                            <a href="#" id="addtocart" class="btn  btn-primary">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span class="text" h>Thêm vào giỏ hàng</span>
+                            </a>
+                        </div> <!-- col.// -->
+                    </div> <!-- row.// -->
+
+
+
+                </article> <!-- product-info-aside .// -->
+            </main> <!-- col.// -->
+        </div> <!-- row.// -->
+        <!-- ================ ITEM DETAIL END .// ================= -->
+
+
+    </div> <!-- container .//  -->
+</section>
+
+
+@if (Model.RelatedProducts != null && Model.RelatedProducts.Any())
+{
+    <h3 class="mt-3 mb-3 text-uppercase font-weight-bold text-center">Các sản phẩm liên quan</h3>
+    <div class="row mt-2 mb-5">
+        @foreach (var relatedProduct in Model.RelatedProducts)
+        {
+            <div class="col-xl-3 col-lg-4 col-sm-6 col-12 col-md-4">
+                <div class="card" style="display: flex">
+                    <img src="~/Content/images/items/@relatedProduct.AnhSanPham" class="card-img-top " alt="Product Image" style="width: 250px; height: 250px; margin: 0 auto">
+                    <div class="card-body" style="text-align: center">
+                        <h5 class="card-title">@relatedProduct.TenSanPham</h5>
+                        <p class="card-text">@String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0:0,##0}", relatedProduct.DonGia) VNĐ</p>
+                        <a href="@Url.Action("Details", "SanPham_63132681", new { id = relatedProduct.MaSanPham })" class="btn btn-primary">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,139 @@
+﻿@model QuanLyBanHang_63132681.Models.NhanVien
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin_63132681/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+    <meta content="" name="description" />
+
+
+</head>
+
+<body>
+    <!-- About Start -->
+    <div class="content-wrapper">
+        <div class="container py-5 detail--wrapper">
+            <div class="container">
+                <div class="row g-5">
+                    <div class="col-lg-6 wow fadeInUp"
+                         data-wow-delay="0.1s"
+                         @*style="min-height: 400px"*@>
+                        <div class="position-relative h-100">
+                            <img class="img-fluid position-absolute w-100 h-100 img--info"
+                                 src="~/Content/images/items/@Html.DisplayFor(model => model.AnhNhanVien)"
+                                 alt=""
+                                 style="object-fit: cover" />
+                        </div>
+                    </div>
+                    <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                        <h1 class="mb-4">
+                            Thông Tin <span class="text-primary">Nhân Viên</span>
+                        </h1>
+                        <p class="mb-4">
+                            <span class="font-weight-bold">   Mã Nhân Viên: </span>@Html.DisplayFor(model => model.MaNhanVien)
+                        </p>
+                        <p class="mb-4">
+                            <span class="font-weight-bold">  Họ Tên Nhân Viên:</span> @Html.DisplayFor(model => model.HoTen)
+                        </p>
+                        <p class="mb-4">
+                            <span class="font-weight-bold">  Điện Thoại:</span> @Html.DisplayFor(model => model.DienThoai)
+                        </p>
+                        <p class="mb-4">
+                            <span class="font-weight-bold">  Địa Chỉ:</span> @Html.DisplayFor(model => model.DiaChi)
+                        </p>
+                        <p class="mb-4">
+                            <span class="font-weight-bold">    Email: </span>@Html.DisplayFor(model => model.Email)
+
+                        </p>
+                        <p class="mb-4">
+                            <span class="font-weight-bold"> Mật Khẩu:</span> @Html.DisplayFor(model => model.MatKhau)
+                        </p>
+
+                        <p class="mb-4">
+                            <span class="font-weight-bold">Quyền Truy Cập:</span> @Html.DisplayFor(model => model.QuyenTruyCap)
+                        </p>
+
+
+                        <div class="second--btn">
+                            @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = Model.MaNhanVien }, new { @class = "btn--one" })
+                            @*@Html.ActionLink("Back to List", "Index")*@
+                            @Html.ActionLink("Quay Lại", "../NhanVienAdmin_63132681/Index", null, new { @class = "btn--two" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+<style>
+
+    a {
+        color: inherit;
+        text-decoration: none;
+        background-color: initial; /* Đặt lại background-color thành giá trị mặc định */
+        /*  -webkit-text-decoration-skip: objects;*/
+    }
+
+    .img--info {
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    }
+
+    .detail--wrapper {
+        position: relative;
+        top: 20px;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+        border-radius: 12px;
+        width: 59%;
+    }
+
+    .second--btn {
+        display: flex;
+        gap: 20px;
+        margin-top: 34px;
+    }
+
+    .btn--one {
+        background: #339af0;
+        border: none;
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+        .btn--one:hover {
+            background: #1c7ed6;
+            cursor: pointer;
+            color: #fff;
+        }
+
+    .btn--two {
+        background-color: #f06595;
+        border: none;
+        color: #f8f9fa;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+        .btn--two:hover {
+            background-color: #d6336c;
+            cursor: pointer;
+            color: #fff;
+        }
+</style>

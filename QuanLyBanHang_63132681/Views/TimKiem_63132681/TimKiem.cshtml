@@ -1,0 +1,87 @@
+﻿@using QuanLyBanHang_63132681.Models
+@using PagedList.Mvc
+@model PagedList.IPagedList<SanPham>
+@{
+    ViewBag.Title = "TimKiem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .content-wrapper {
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 30px;
+    }
+</style>
+<div class="content-wrapper">
+
+    <section class="padding-bottom-sm">
+
+
+        <div class="row row-sm">
+            @foreach (var i in Model)
+            {
+                <div class="col-xl-4 col-lg-3 col-md-4 col-6" style="margin-top: 50px">
+                    <div href="" class="card card-sm card-product-grid product-link">
+                        <a href="@Url.Action("Details", "SanPham_63132681", new { id = i.MaSanPham})" class="img-wrap"> <img src="~/Content/images/items/@i.AnhSanPham"> </a>
+                        <figcaption class="info-wrap">
+                            <a href="@Url.Action("Details", "SanPham_63132681", new { id = i.MaSanPham})" class="title">@i.TenSanPham</a>
+                            <div class="price mt-1">@String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0:0,##0}", i.DonGia) VNĐ</div> <!-- price-wrap.// -->
+                        </figcaption>
+                    </div>
+                </div>
+            }
+
+
+        </div> <!-- row.// -->
+    </section>
+
+    <div>
+        <p class="text-center">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/ @Model.PageCount</p>
+        @Html.PagedListPager(Model, page => Url.Action("TimKiem", new { page = page, @tukhoa = ViewBag.Tukhoa }))
+    </div>
+
+
+
+</div>
+<div class="mt-2 mb-2">  &nbsp;</div>
+
+<style>
+    .content-wrapper {
+        width: 70%;
+        margin: 0 auto;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+        .pagination a,
+        .pagination span {
+            color: #007bff;
+            border: 1px solid #007bff;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin: 0 4px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+            .pagination a:hover {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+        .pagination .disabled {
+            color: #d1d1d1;
+            border-color: #d1d1d1;
+            cursor: not-allowed;
+        }
+
+        .pagination .active {
+            background-color: #007bff;
+            color: #fff;
+        }
+</style>

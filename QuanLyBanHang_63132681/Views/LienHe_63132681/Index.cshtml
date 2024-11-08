@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1718.612147315727!2d109.20088531324483!3d12.268234476934175!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317067ed3a052f11%3A0xd464ee0a6e53e8b7!2sNha%20Trang%20University!5e0!3m2!1sen!2sbd!4v1700714029311!5m2!1sen!2sbd" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+<!-- Map End -->
+<!-- Contact Section Begin -->
+<section class="contact spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="contact__text">
+                    <div class="section-title">
+                        <span>Thông tin của chúng tôi</span>
+                        <h2>Liên hệ chúng tôi</h2>
+                  
+                    </div>
+                    <ul>
+                        <li>
+                            <h4>Việt Nam</h4>
+                            <p>86/21 Nguyễn Đình Chiểu, Phường Vĩnh Phước, Nha Trang, Khánh Hòa</p>
+                        </li>
+          
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="contact__form">
+                    <form action="#">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Name">
+                            </div>
+                            <div class="col-lg-6">
+                                <input type="text" placeholder="Email">
+                            </div>
+                            <div class="col-lg-12">
+                                <textarea placeholder="Message"></textarea>
+                                <button type="submit" class="site-btn">Send Message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .map {
+        margin-bottom: 30px; /* Thêm khoảng cách dưới map */
+    }
+
+    .contact__text .section-title h2 {
+        font-size: 36px; /* Giảm kích thước font chủ đề */
+        margin-bottom: 18px;
+    }
+
+    .section-title span {
+        font-size: 12px; /* Giảm kích thước font span */
+        margin-bottom: 10px;
+    }
+
+    .contact__text ul li h4 {
+        margin-bottom: 5px;
+    }
+
+    .contact__form input,
+    .contact__form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #e1e1e1;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #333;
+        transition: border-color 0.3s;
+    }
+
+        .contact__form input:focus,
+        .contact__form textarea:focus {
+            border-color: #e53637;
+            outline: none;
+        }
+
+    .contact__form textarea {
+        height: 150px;
+        resize: none;
+    }
+
+    .contact__form button {
+        letter-spacing: 2px;
+        padding: 12px 25px;
+        font-size: 14px;
+        color: #fff;
+        background: #e53637;
+        border: none;
+        border-radius: 5px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+        .contact__form button:hover {
+            background: #111;
+        }
+</style>
